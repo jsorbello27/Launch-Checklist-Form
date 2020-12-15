@@ -35,7 +35,7 @@ window.addEventListener('load', function(){
 		let fuel = document.querySelector('input[name=fuelLevel]').value;
 		let cargo = document.querySelector('input[name=cargoMass]').value;
 
-		if(pilotName === '' || copilotName === '' || fuel === ''|| cargo === ''){
+		if(pilotName === '' || copilotName === '' || fuel === ''|| cargo === '') {
 			items.style.visibility = 'hidden';
 			alert('All fields are required!');
 			
@@ -44,11 +44,15 @@ window.addEventListener('load', function(){
 		}if(isNaN(fuel) || isNaN(cargo)){
 			items.style.visibility = 'hidden';
 			alert('Fuel and Cargo must be a number!');
-		}
-		else{
+		}else if (!(isNaN(pilotName) && isNaN(copilotName))){
+			items.style.visibility = 'hidden';
+			alert("Pilot and Copilot cannot be a number");
+		}else{
 			items.style.visibility = 'visible';
 			pilotStatus.innerHTML = (`Pilot ${pilotName} is ready for launch`);
 			copilotStatus.innerHTML = (`Co-pilot ${copilotName} is ready for launch`);
+			launchStatus.innerHTML = ('Shuttle ready for launch');
+			launchStatus.style.color = 'green';
 
 			if(fuel<10000){
 				items.style.visibility = 'visible';
@@ -65,6 +69,8 @@ window.addEventListener('load', function(){
 				cargoStatus.innerHTML = "Too much mass for shuttle to take off";
 				launchStatus.innerHTML = 'Shuttle not ready for launch';
 				launchStatus.style.color = 'red';
+			}else{
+				cargoStatus.innerHTML = "Cargo low enough for launch";
 			}
 
 		};
